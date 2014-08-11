@@ -76,6 +76,7 @@ if(action!=null && action.equalsIgnoreCase ("register")){
     <tr>
     <td>
     <input type = "image" src="images/zhuce.gif" />
+     <input type="submit" value="提交">
     <input type = "reset" value="重新填写"/>
     </td>
     </tr>
