@@ -24,6 +24,8 @@ if(isSuccess){
 <title>Insert title here</title>
 </head>
 <body>
-
+<script>
+window.parent.main.document.location.reload();
+</script>
 </body>
 </html>
