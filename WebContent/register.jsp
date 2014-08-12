@@ -8,7 +8,7 @@ String action=request.getParameter ("action");
 //check if it is the first link or a submit
 if(action!=null && action.equalsIgnoreCase ("register")){
   String username=request.getParameter ("username");
-  String password=request.getParameter ("password");
+  String password=request.getParameter ("pwd");
   String phone=request.getParameter ("phone");
   String addr=request.getParameter ("addr");
   User u=new User();

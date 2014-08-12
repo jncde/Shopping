@@ -98,10 +98,24 @@ public class DB {
       e.printStackTrace ();
     }
 
-    return null;
+    return rs;
   }
 
-  public static void closeResultSet (ResultSet rs) {
+  public static ResultSet executeQuery (Connection conn,
+                                        String sql) {
+
+    ResultSet rs = null;
+    try {
+      rs = conn.createStatement ().executeQuery (sql);
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    }
+
+    return rs;
+
+  }
+
+  public static void closeRs (ResultSet rs) {
 
     if (rs != null) {
       try {
