@@ -2,6 +2,8 @@
     pageEncoding="GB18030"%>
 
 <%@ page import="com.sy.shopping.util.*" %>
+<%@ include file="_sessioncheck.jsp"%>    
+
 <%
 String id=request.getParameter ("id");
 Boolean isSuccess=UserManager.deleteUser (id);

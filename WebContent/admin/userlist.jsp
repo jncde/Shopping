@@ -3,6 +3,8 @@
     pageEncoding="GB18030"%>
  <%@ page import="java.sql.*,com.sy.shopping.*,java.util.*" %>
  
+ <%@ include file="_sessioncheck.jsp"%>    
+ 
  <%
  //get all users
 List<User> users=User.getUsers ();
