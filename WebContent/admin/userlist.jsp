@@ -25,6 +25,7 @@ List<User> users=User.getUsers ();
 		<td>Phone</td>
 		<td>Addr</td>
 		<td>Rdate</td>
+		<td>Modify</td>
 	</tr>
 	<%
 	for(Iterator<User> it=users.iterator();it.hasNext ();){
@@ -38,6 +39,7 @@ List<User> users=User.getUsers ();
 	  	<td id="004"><%=u.getPhone ()%></td>
 	  	<td id="005"><%=u.getAddr ()%></td>
 	  	<td id="006"><%=u.getRdate ()%></td>
+	  	<td id="007"><a href="userdelete.jsp?id=<%=u.getId() %>" target="detail">Delete</a></td>
 	  </tr>  
 	  
 	  
