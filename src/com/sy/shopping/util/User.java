@@ -86,6 +86,70 @@ public class User {
 
   }
 
+  public static boolean userExists (String username) {
+
+    Connection conn = DB.getConnection ();
+    String sql = "select * from user where username='" + username + "'";
+
+    return false;
+  }
+
+  public static boolean isPasswordCorrect (String uname,
+                                           String pwd) {
+
+    return false;
+  }
+
+  public static User validate (String uname,
+                               String pwd) throws UserNotFoundException, PasswordNotCorrectException {
+
+    Connection conn = null;
+    ResultSet rs = null;
+    User u = null;
+    conn = DB.getConnection ();
+    String sql = "select * from user where username='" + uname + "'";
+
+    try {
+      rs = DB.executeQuery (conn, sql);
+      if (!rs.next ()) {
+        throw new UserNotFoundException ();
+      } else if (!rs.getString ("password").equals (pwd)) {
+        throw new PasswordNotCorrectException ();
+      } else {
+        u = new User ();
+        setUserDataFromRs (rs, u);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    } finally {
+      DB.closeRs (rs);
+      DB.closeConn (conn);
+    }
+
+    return u;
+  }
+
+  public boolean update () {
+
+    String sql = "update user set username='" + username + "', phone='" + phone + "',addr='" + addr + "' where id=" +
+                 id;
+
+    Connection conn = null;
+
+    conn = DB.getConnection ();
+    PreparedStatement pStmt = DB.prepStmt (conn, sql);
+    try {
+      pStmt.executeUpdate ();
+    } catch (SQLException e) {
+      e.printStackTrace ();
+      DB.closeConn (conn);
+      return false;
+    }
+
+    DB.closeConn (conn);
+    return true;
+  }
+
   public static List<User> getUsers () {
 
     List<User> users = new ArrayList<User> ();
@@ -97,12 +161,7 @@ public class User {
       rs = DB.executeQuery (conn, sql);
       while (rs.next ()) {
         User u = new User ();
-        u.setId (rs.getInt ("id"));
-        u.setUsername (rs.getString ("username"));
-        u.setPassword (rs.getString ("password"));
-        u.setPhone (rs.getString ("phone"));
-        u.setAddr (rs.getString ("addr"));
-        u.setRdate (new java.util.Date (rs.getDate ("rdate").getTime ()));
+        setUserDataFromRs (rs, u);
         users.add (u);
 
       }
@@ -115,5 +174,15 @@ public class User {
 
     return users;
 
+  }
+
+  private static void setUserDataFromRs (ResultSet rs,
+                                         User u) throws SQLException {
+    u.setId (rs.getInt ("id"));
+    u.setUsername (rs.getString ("username"));
+    u.setPassword (rs.getString ("password"));
+    u.setPhone (rs.getString ("phone"));
+    u.setAddr (rs.getString ("addr"));
+    u.setRdate (new java.util.Date (rs.getDate ("rdate").getTime ()));
   }
 }
