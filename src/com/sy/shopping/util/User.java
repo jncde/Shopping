@@ -131,14 +131,19 @@ public class User {
 
   public boolean update () {
 
-    String sql = "update user set username='" + username + "', phone='" + phone + "',addr='" + addr + "' where id=" +
-                 id;
+    //    String sql = "update user set username='" + username + "', phone='" + phone + "',addr='" + addr + "' where id=" +
+    //                 id;
+
+    String sql = "update user set username=?, phone=?,addr=? where id=" + id;
 
     Connection conn = null;
 
-    conn = DB.getConnection ();
-    PreparedStatement pStmt = DB.prepStmt (conn, sql);
     try {
+      conn = DB.getConnection ();
+      PreparedStatement pStmt = DB.prepStmt (conn, sql);
+      pStmt.setString (1, username);
+      pStmt.setString (2, phone);
+      pStmt.setString (3, addr);
       pStmt.executeUpdate ();
     } catch (SQLException e) {
       e.printStackTrace ();
