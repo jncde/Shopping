@@ -20,6 +20,8 @@ List<Category> cs=Category.getCategories();
 <body>
 
 <table border="1"  align="center">
+
+
   <tr>
     <td>ID</td>
     <td>NAME</td>

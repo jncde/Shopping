@@ -26,25 +26,13 @@ function t(key,parentkey){
 
 </head>
 <body>
-<script language="javascript">
- 
-addNode(-1,0,"所有类别","images/top.gif");
-<%
-for(Iterator<Category> it=cs.iterator ();it.hasNext (); ){
-  Category c=it.next();
-  %>
-  addNode(<%=c.getPid ()%>,<%=c.getId ()%>,"<%=c.getName ()%>","images/top.gif");
-  <%
-}
-%>
-  
-  showTV();
-  addListener("click","t");
- 
-</script>
+
 <form name="form" action="categoryadd.jsp" method="post">
 	<input type="hidden" name="action" value="add" />
 <table align="center" border="1">
+<tr>
+  <td id="show" colspan="2"></td>
+</tr>
 <tr>
 	<td>
 	<label for="pid">pid:</label>
@@ -81,5 +69,27 @@ for(Iterator<Category> it=cs.iterator ();it.hasNext (); ){
 </table>
   </form>
 
+
+<script language="javascript">
+ 
+addNode(-1,0,"所有类别","images/top.gif");
+<%
+for(Iterator<Category> it=cs.iterator ();it.hasNext (); ){
+  Category c=it.next();
+  %>
+  addNode(<%=c.getPid ()%>,<%=c.getId ()%>,"<%=c.getName ()%>","images/top.gif");
+  <%
+}
+%>
+  
+  showTV();
+  addListener("click","t");
+ 
+</script>
+
 </body>
+
+
+
+
 </html>

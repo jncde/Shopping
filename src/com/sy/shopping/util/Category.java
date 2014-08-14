@@ -90,6 +90,10 @@ public class Category {
     // TODO Auto-generated constructor stub
   }
 
+  public void delete () {
+    CategoryDAO.delete (id, pid);
+  }
+
   public static List<Category> getCategories () {
 
     List<Category> cs = new ArrayList<Category> ();
