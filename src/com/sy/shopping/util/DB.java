@@ -101,6 +101,19 @@ public class DB {
     return rs;
   }
 
+  public static int executeUpdate (Connection conn,
+                                   String sql) {
+
+    int result = 0;
+    try {
+      result = conn.createStatement ().executeUpdate (sql);
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    }
+
+    return result;
+  }
+
   public static ResultSet executeQuery (Connection conn,
                                         String sql) {
 
