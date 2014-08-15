@@ -3,7 +3,7 @@
     pageEncoding="GB18030"%>
  <%@ page import="java.sql.*,com.sy.shopping.*,java.util.*" %>
  
- <%@ include file="_sessioncheck.jsp"%>    
+ <%@ include file="_sessioncheck.jsp"%>  
  
  <%
  //get all users
@@ -28,6 +28,7 @@ List<Category> cs=Category.getCategories();
     <td>pid</td>
     <td>grade</td>
     <td></td>
+    <td></td>
  
   </tr>
   <%
@@ -46,6 +47,8 @@ List<Category> cs=Category.getCategories();
       <td id="004"><%=c.getGrade ()%></td>
       <td>
       <a href="categoryadd.jsp?pid=<%=c.getId()%>">添加子类别</a></td>
+      <td>
+      <a href="categorydelete.jsp?id=<%=c.getId()%>">删除</a></td>
     </tr>  
     
     

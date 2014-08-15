@@ -266,7 +266,6 @@ function nodeitem_show () {
     for ( var i in document.all) {
       //          if (document.all[i].tagName == "BODY")
       if (document.all[i].id == "show") {
-        alert(str);
         document.all[i].insertAdjacentHTML("AfterBegin", str);
         break
       }
@@ -505,6 +504,7 @@ function lable_on_click (id) {
       h = tv_listeners[i].handler;
       eval(h + "( '" + key + "' , '" + parentkey + "' ) ; ");
     }
+
   }
 
 }

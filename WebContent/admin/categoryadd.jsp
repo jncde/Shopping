@@ -11,7 +11,7 @@ String action=request.getParameter ("action");
 String strPid=request.getParameter("pid");
 int pid=0;
 if(strPid!=null){
-  pid=Integer.parseInt (strPid);
+  pid=Integer.parseInt (strPid); 
 }
 
 //ch eck if it is the first link or a submit
@@ -22,7 +22,7 @@ if(pid==0){
   Category.addTopCategory (name,descr);
   out.println ("add rooot category success!");
 }else{
-  Category.addChildCategory(pid,name,descr);
+  Category.addChildCategory(pid,name,descr); 
   out.println ("add Child category to father(id:"+pid+") success!");
 }
 

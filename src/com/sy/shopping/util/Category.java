@@ -94,6 +94,10 @@ public class Category {
     CategoryDAO.delete (id, pid);
   }
 
+  public static void deleteByid (String id) {
+    CategoryDAO.deleteById (id);
+  }
+
   public static List<Category> getCategories () {
 
     List<Category> cs = new ArrayList<Category> ();

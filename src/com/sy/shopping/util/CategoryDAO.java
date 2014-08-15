@@ -134,15 +134,34 @@ public class CategoryDAO {
 
     Connection conn = null;
     conn = DB.getConnection ();
-    //        deleteRecurseivCategrory (conn, id);
-    checkAndUpdateParent (pid);
+    try {
+      deleteRecurseivCategrory (conn, id);
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    }
+    checkAndUpdateParent (conn, pid);
     DB.closeConn (conn);
 
   }
 
-  private static void checkAndUpdateParent (int pid) {
-    // TODO Auto-generated method stub
+  private static void checkAndUpdateParent (Connection conn,
+                                            int id) {
 
+    String hasChildSql = "select * from Category where pid=" + id;
+    ResultSet rs = DB.executeQuery (conn, hasChildSql);
+    try {
+      if (rs.next ()) {
+        //do nothing
+      } else {
+        String updateSql = "update category set isleaf=1 where id=" + id;
+
+      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace ();
+    }
+
+    DB.closeRs (rs);
   }
 
   private static void deleteRecurseivCategrory (Connection conn,
@@ -157,6 +176,16 @@ public class CategoryDAO {
     }
 
     String deleteSql = "delete from category where id=" + id;
+    DB.executeUpdate (conn, deleteSql);
+
+    DB.closeRs (rs);
+
+  }
+
+  public static void deleteById (String id) {
+
+    Category c = getCategoryByID (Integer.parseInt (id));
+    delete (c.getId (), c.getPid ());
 
   }
 }

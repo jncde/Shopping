@@ -5,6 +5,7 @@
  
  <%@ include file="_sessioncheck.jsp"%>    
  
+ 
  <%
  //get all users
 List<Category> cs=Category.getCategories();
@@ -19,6 +20,11 @@ List<Category> cs=Category.getCategories();
 <script>
 function t(key,parentkey){
   document.forms["form"].pid.value=key;
+}
+
+
+function modify(key,parentkey){
+  window.parent.frames["detail"].location.href="categorymodify.jsp?id="+key;
 }
 </script>
 
@@ -84,6 +90,7 @@ for(Iterator<Category> it=cs.iterator ();it.hasNext (); ){
   
   showTV();
   addListener("click","t");
+  addListener("dblclick","modify");
  
 </script>
 
