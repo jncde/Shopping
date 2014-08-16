@@ -56,18 +56,19 @@ public class ProductOracleDAO implements ProductDAO {
   }
 
   @Override
-  public List<Product> findProducts (int[] categoryId,
-                                     String keyword,
-                                     double lowNormalPrice,
-                                     double highNormalPrice,
-                                     double lowMemberPrice,
-                                     double highMemberPrice,
-                                     Date startDate,
-                                     Date endDate,
-                                     int pageNo,
-                                     int pageSize) {
+  public int findProducts (List<Product> ps,
+                           int[] categoryId,
+                           String keyword,
+                           double lowNormalPrice,
+                           double highNormalPrice,
+                           double lowMemberPrice,
+                           double highMemberPrice,
+                           Date startDate,
+                           Date endDate,
+                           int pageNo,
+                           int pageSize) {
     // TODO Auto-generated method stub
-    return null;
+    return 0;
   }
 
 }

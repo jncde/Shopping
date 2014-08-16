@@ -54,27 +54,30 @@ public class ProductMgr {
     return dao.getProducts (result, pageNo, pageSize);
   }
 
-  public List<Product> findProducts (int[] categoryId,
-                                     String keyword,
-                                     double lowNormalPrice,
-                                     double highNormalPrice,
-                                     double lowMemberPrice,
-                                     double highMemberPrice,
-                                     Date startDate,
-                                     Date endDate,
-                                     int pageNo,
-                                     int pageSize) {
+  public int findProducts (List<Product> ps,
+                           int[] categoryId,
+                           String keyword,
+                           double lowNormalPrice,
+                           double highNormalPrice,
+                           double lowMemberPrice,
+                           double highMemberPrice,
+                           Date startDate,
+                           Date endDate,
+                           int pageNo,
+                           int pageSize) {
 
-    return dao.findProducts (categoryId,
-                             keyword,
-                             lowNormalPrice,
-                             highNormalPrice,
-                             lowMemberPrice,
-                             highMemberPrice,
-                             startDate,
-                             endDate,
-                             pageNo,
-                             pageSize);
+    int pageCount = dao.findProducts (ps,
+                                      categoryId,
+                                      keyword,
+                                      lowNormalPrice,
+                                      highNormalPrice,
+                                      lowMemberPrice,
+                                      highMemberPrice,
+                                      startDate,
+                                      endDate,
+                                      pageNo,
+                                      pageSize);
+    return pageCount;
   }
 
   public List<Product> findProducts (String name) {

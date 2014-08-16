@@ -12,16 +12,17 @@ public interface ProductDAO {
   public List<Product> getProducts (int pageNo,
                                     int pageSize);
 
-  public List<Product> findProducts (int[] categoryId,
-                                     String keyword,
-                                     double lowNormalPrice,
-                                     double highNormalPrice,
-                                     double lowMemberPrice,
-                                     double highMemberPrice,
-                                     Date startDate,
-                                     Date endDate,
-                                     int pageNo,
-                                     int pageSize);
+  public int findProducts (List<Product> ps,
+                           int[] categoryId,
+                           String keyword,
+                           double lowNormalPrice,
+                           double highNormalPrice,
+                           double lowMemberPrice,
+                           double highMemberPrice,
+                           Date startDate,
+                           Date endDate,
+                           int pageNo,
+                           int pageSize);
 
   public boolean deleteProductByCategoryId (int categoryId);
 

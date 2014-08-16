@@ -165,19 +165,22 @@ public class ProductMySqlDAO implements ProductDAO {
   }
 
   @Override
-  public List<Product> findProducts (int[] categoryId,
-                                     String keyword,
-                                     double lowNormalPrice,
-                                     double highNormalPrice,
-                                     double lowMemberPrice,
-                                     double highMemberPrice,
-                                     Date startDate,
-                                     Date endDate,
-                                     int pageNo,
-                                     int pageSize) {
-    List<Product> ps = new ArrayList<Product> ();
+  public int findProducts (List<Product> ps,
+                           int[] categoryId,
+                           String keyword,
+                           double lowNormalPrice,
+                           double highNormalPrice,
+                           double lowMemberPrice,
+                           double highMemberPrice,
+                           Date startDate,
+                           Date endDate,
+                           int pageNo,
+                           int pageSize) {
+
     Connection conn = DB.getConnection ();
     ResultSet rs = null;
+    ResultSet rsCount = null;
+    int pageCount = 0;
     //where 1=1
     String sql = "select * from product where 1=1";
     if (categoryId != null && categoryId.length > 0) {
@@ -219,6 +222,10 @@ public class ProductMySqlDAO implements ProductDAO {
       sql += " and pdate<='" + new SimpleDateFormat ("yyyy-MM-dd").format (endDate) + "'";
     }
 
+    String sqlCount = sql.replaceFirst ("select \\*", "select count(*)");
+    System.out.println ("sqlcount---" + sqlCount);
+    rsCount = DB.executeQuery (conn, sqlCount);
+
     sql += " limit " + (pageNo - 1) * pageSize + "," + pageSize;
     System.out.println (sql);
 
@@ -230,13 +237,20 @@ public class ProductMySqlDAO implements ProductDAO {
         ps.add (p);
 
       }
+
+      //calculate page size
+      if (rsCount.next ()) {
+        pageCount = (rsCount.getInt (1) + pageSize - 1) / pageSize;
+      }
+
     } catch (SQLException e) {
       e.printStackTrace ();
     } finally {
       DB.closeRs (rs);
+      DB.closeRs (rsCount);
       DB.closeConn (conn);
     }
 
-    return ps;
+    return pageCount;
   }
 }

@@ -55,7 +55,8 @@ if(strEndDate==null||strEndDate.isEmpty ()){
   endDate=Timestamp.valueOf (strEndDate);
 }
 
-List<Product> products=ProductMgr.getInstance ().findProducts (idArray, keyword, lowNormalPrice, highNormalPrice, lowMemberPrice, highMemberPrice, startDate, endDate, pageNo,3 );
+List<Product> products=new ArrayList<Product>();
+int pageCount=ProductMgr.getInstance ().findProducts (products,idArray, keyword, lowNormalPrice, highNormalPrice, lowMemberPrice, highMemberPrice, startDate, endDate, pageNo,3 );
 
 %>
 
@@ -98,6 +99,7 @@ List<Product> products=ProductMgr.getInstance ().findProducts (idArray, keyword,
 </table>
 <center>
 <a href="productsearch.jsp?action=<%=action%>&keyword=<%=keyword%>&lownormalprice=<%=lowNormalPrice%>&highnormalprice=<%=highNormalPrice%>&lowmemberprice=<%=lowMemberPrice%>&highmemberprice=<%=highMemberPrice%>&startdate=<%=strStartDate%>&enddate=<%=strEndDate%>&categoryid=<%=categoryId%>&pageno=<%=pageNo-1%>">上一页</a>
+共<%=pageCount%>页
 <a href="productsearch.jsp?action=<%=action%>&keyword=<%=keyword%>&lownormalprice=<%=lowNormalPrice%>&highnormalprice=<%=highNormalPrice%>&lowmemberprice=<%=lowMemberPrice%>&highmemberprice=<%=highMemberPrice%>&startdate=<%=strStartDate%>&enddate=<%=strEndDate%>&categoryid=<%=categoryId%>&pageno=<%=pageNo+1%>">下一页</a>
 </center>
 
