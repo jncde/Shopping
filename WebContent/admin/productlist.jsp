@@ -46,7 +46,7 @@ if(pageNo>pageSize) pageNo=pageSize;
 		<td>normal price</td>
 		<td>member price</td>
 		<td>pdate</td>
-		<td>categoryid</td>
+		<td>categoryname</td>
 		<td></td>
 		<td></td>
 	</tr>
@@ -62,7 +62,7 @@ if(pageNo>pageSize) pageNo=pageSize;
 	  	<td id="004"><%=p.getNormalPrice ()%></td>
 	  	<td id="005"><%=p.getMemberPrice ()%></td>
 	  	<td id="006"><%=p.getPdate ()%></td>
-	  	<td id="007"><%=p.getCategoryid ()%></td>
+	  	<td id="007"><%=p.getCategory ().getName ()%></td>
 	  	<td id="008"><a href="productdelete.jsp?id=<%=p.getId() %>" target="detail">Delete</a></td>
 	  	<td id="008"><a href="productModify.jsp?id=<%=p.getId() %>" target="detail">Modify</a></td>
 	  </tr>  

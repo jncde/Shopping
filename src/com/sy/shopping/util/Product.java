@@ -4,11 +4,22 @@ import java.sql.Timestamp;
 
 public class Product {
 
-  private int    id;
-  private String name;
-  private String descr;
-  private double normalPrice;
-  private double memberPrice;
+  private int       id;
+  private String    name;
+  private String    descr;
+  private double    normalPrice;
+  private double    memberPrice;
+  private Timestamp pdate;
+  private int       categoryid;
+  private Category  category;
+
+  public Category getCategory () {
+    return category;
+  }
+
+  public void setCategory (Category category) {
+    this.category = category;
+  }
 
   public int getId () {
     return id;
@@ -65,8 +76,5 @@ public class Product {
   public void setCategoryid (int categoryid) {
     this.categoryid = categoryid;
   }
-
-  private Timestamp pdate;
-  private int       categoryid;
 
 }

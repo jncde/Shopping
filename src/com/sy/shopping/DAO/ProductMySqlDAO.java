@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sy.shopping.util.Category;
 import com.sy.shopping.util.DB;
 import com.sy.shopping.util.Product;
 
@@ -62,12 +63,22 @@ public class ProductMySqlDAO implements ProductDAO {
     List<Product> ps = new ArrayList<Product> ();
     Connection conn = DB.getConnection ();
     ResultSet rs = null;
-    String sql = "select * from product limit " + (pageNo - 1) * pageSize + "," + pageSize;
+    String sql = "select p.*,c.id ad cid,c.name as cname,c.descr as cdescr,c.pid , c.isleaf,c.grade  " +
+                 " from product p join category c on p.categoryid=c.id" + " limit " + (pageNo - 1) * pageSize + "," +
+                 pageSize;
     rs = DB.executeQuery (conn, sql);
     try {
       while (rs.next ()) {
 
         Product p = saveSingleProduct (rs);
+        Category c = new Category ();
+        c.setId (rs.getInt ("cid"));
+        c.setName (rs.getString ("cname"));
+        c.setDescr (rs.getString ("cdescr"));
+        c.setPid (rs.getInt ("pid"));
+        c.setLeaf (rs.getInt ("isleaf") == 0 ? true : false);
+        c.setGrade (rs.getInt ("grade"));
+        p.setCategory (c);
         ps.add (p);
 
       }
@@ -139,13 +150,27 @@ public class ProductMySqlDAO implements ProductDAO {
     ResultSet allrs = null;
     String allsql = "select count(*) from product";
 
-    String sql = "select * from product limit " + (pageNo - 1) * pageSize + "," + pageSize;
+    String sql = "select p.*,c.id as cid,c.name as cname,c.descr as cdescr,c.pid , c.isleaf,c.grade  " +
+                 " from product p join category c on p.categoryid=c.id" + " limit " + (pageNo - 1) * pageSize + "," +
+                 pageSize;
+    System.out.println (sql);
+
     rs = DB.executeQuery (conn, sql);
     allrs = DB.executeQuery (conn, allsql);
     try {
       while (rs.next ()) {
 
         Product p = saveSingleProduct (rs);
+
+        Category c = new Category ();
+        c.setId (rs.getInt ("cid"));
+        c.setName (rs.getString ("cname"));
+        c.setDescr (rs.getString ("cdescr"));
+        c.setPid (rs.getInt ("pid"));
+        c.setLeaf (rs.getInt ("isleaf") == 0 ? true : false);
+        c.setGrade (rs.getInt ("grade"));
+        p.setCategory (c);
+
         result.add (p);
 
       }
