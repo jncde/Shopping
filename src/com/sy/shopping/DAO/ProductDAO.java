@@ -13,8 +13,7 @@ public interface ProductDAO {
                                     int pageSize);
 
   public List<Product> findProducts (int[] categoryId,
-                                     String name,
-                                     String descr,
+                                     String keyword,
                                      double lowNormalPrice,
                                      double highNormalPrice,
                                      double lowMemberPrice,

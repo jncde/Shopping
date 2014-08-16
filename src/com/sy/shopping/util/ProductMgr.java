@@ -55,8 +55,7 @@ public class ProductMgr {
   }
 
   public List<Product> findProducts (int[] categoryId,
-                                     String name,
-                                     String descr,
+                                     String keyword,
                                      double lowNormalPrice,
                                      double highNormalPrice,
                                      double lowMemberPrice,
@@ -66,7 +65,16 @@ public class ProductMgr {
                                      int pageNo,
                                      int pageSize) {
 
-    return null;
+    return dao.findProducts (categoryId,
+                             keyword,
+                             lowNormalPrice,
+                             highNormalPrice,
+                             lowMemberPrice,
+                             highMemberPrice,
+                             startDate,
+                             endDate,
+                             pageNo,
+                             pageSize);
   }
 
   public List<Product> findProducts (String name) {

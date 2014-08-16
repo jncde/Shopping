@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,22 +79,6 @@ public class ProductMySqlDAO implements ProductDAO {
     }
 
     return ps;
-  }
-
-  @Override
-  public List<Product> findProducts (int[] categoryId,
-                                     String name,
-                                     String descr,
-                                     double lowNormalPrice,
-                                     double highNormalPrice,
-                                     double lowMemberPrice,
-                                     double highMemberPrice,
-                                     Date startDate,
-                                     Date endDate,
-                                     int pageNo,
-                                     int pageSize) {
-
-    return null;
   }
 
   @Override
@@ -179,4 +164,79 @@ public class ProductMySqlDAO implements ProductDAO {
 
   }
 
+  @Override
+  public List<Product> findProducts (int[] categoryId,
+                                     String keyword,
+                                     double lowNormalPrice,
+                                     double highNormalPrice,
+                                     double lowMemberPrice,
+                                     double highMemberPrice,
+                                     Date startDate,
+                                     Date endDate,
+                                     int pageNo,
+                                     int pageSize) {
+    List<Product> ps = new ArrayList<Product> ();
+    Connection conn = DB.getConnection ();
+    ResultSet rs = null;
+    //where 1=1
+    String sql = "select * from product where 1=1";
+    if (categoryId != null && categoryId.length > 0) {
+
+      String strId = "(";
+      for (int i = 0; i < categoryId.length; i++) {
+        if (i < categoryId.length - 1) {
+          strId += categoryId[i] + ",";
+        } else {
+          strId += categoryId[i];
+        }
+      }
+      strId += ")";
+      sql += " and categoryid in " + strId;
+    }
+
+    if (keyword != null && !keyword.trim ().equals ("")) {
+      sql += " and ( name like '*" + keyword + "*' or descr like '*" + keyword + "*' )";
+    }
+
+    if (lowNormalPrice >= 0) {
+      sql += " and lownormalprice>" + lowNormalPrice;
+    }
+    if (highNormalPrice > 0) {
+      sql += " and highnormalprice<" + highNormalPrice;
+    }
+    if (lowMemberPrice >= 0) {
+      sql += " and lowmemberprice>" + lowMemberPrice;
+    }
+    if (highMemberPrice > 0) {
+      sql += " and highmemberprice<" + highMemberPrice;
+    }
+
+    if (startDate != null) {
+      sql += " and pdate>='" + new SimpleDateFormat ("yyyy-MM-dd").format (startDate) + "'";
+    }
+
+    if (endDate != null) {
+      sql += " and pdate<='" + new SimpleDateFormat ("yyyy-MM-dd").format (endDate) + "'";
+    }
+
+    sql += " limit " + (pageNo - 1) * pageSize + "," + pageSize;
+    System.out.println (sql);
+
+    rs = DB.executeQuery (conn, sql);
+    try {
+      while (rs.next ()) {
+
+        Product p = saveSingleProduct (rs);
+        ps.add (p);
+
+      }
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    } finally {
+      DB.closeRs (rs);
+      DB.closeConn (conn);
+    }
+
+    return ps;
+  }
 }

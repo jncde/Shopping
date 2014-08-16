@@ -24,22 +24,6 @@ public class ProductOracleDAO implements ProductDAO {
   }
 
   @Override
-  public List<Product> findProducts (int[] categoryId,
-                                     String name,
-                                     String descr,
-                                     double lowNormalPrice,
-                                     double highNormalPrice,
-                                     double lowMemberPrice,
-                                     double highMemberPrice,
-                                     Date startDate,
-                                     Date endDate,
-                                     int pageNo,
-                                     int pageSize) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
   public boolean deleteProductByCategoryId (int categoryId) {
     // TODO Auto-generated method stub
     return false;
@@ -69,6 +53,21 @@ public class ProductOracleDAO implements ProductDAO {
                           int pageSize) {
     // TODO Auto-generated method stub
     return 0;
+  }
+
+  @Override
+  public List<Product> findProducts (int[] categoryId,
+                                     String keyword,
+                                     double lowNormalPrice,
+                                     double highNormalPrice,
+                                     double lowMemberPrice,
+                                     double highMemberPrice,
+                                     Date startDate,
+                                     Date endDate,
+                                     int pageNo,
+                                     int pageSize) {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }
