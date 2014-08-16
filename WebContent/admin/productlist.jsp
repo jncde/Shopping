@@ -7,10 +7,27 @@
  
  <%@ include file="_sessioncheck.jsp"%>    
  
- <%
- //get all users
-List<Product> ps=ProductMgr.getInstance ().getProducts ();
+ <%!
+ private static final int PAGE_SIZE=3;
+ %>
  
+ <%
+ 
+ String strPageNo=request.getParameter ("pageno");
+ int pageNo=1;
+ 
+ if(strPageNo!=null){
+   pageNo=Integer.parseInt (strPageNo);
+ }
+ 
+ if(pageNo<1) pageNo=1;
+ 
+ //get all users
+List<Product> ps=new ArrayList<Product>();
+int pageSize=ProductMgr.getInstance ().getProducts (ps,pageNo,PAGE_SIZE);
+if(pageNo>pageSize) pageNo=pageSize;
+
+
  %>
  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,6 +48,7 @@ List<Product> ps=ProductMgr.getInstance ().getProducts ();
 		<td>pdate</td>
 		<td>categoryid</td>
 		<td></td>
+		<td></td>
 	</tr>
 	<%
 	for(Iterator<Product> it=ps.iterator();it.hasNext ();){
@@ -46,6 +64,7 @@ List<Product> ps=ProductMgr.getInstance ().getProducts ();
 	  	<td id="006"><%=p.getPdate ()%></td>
 	  	<td id="007"><%=p.getCategoryid ()%></td>
 	  	<td id="008"><a href="productdelete.jsp?id=<%=p.getId() %>" target="detail">Delete</a></td>
+	  	<td id="008"><a href="productModify.jsp?id=<%=p.getId() %>" target="detail">Modify</a></td>
 	  </tr>  
 	  
 	  
@@ -55,6 +74,16 @@ List<Product> ps=ProductMgr.getInstance ().getProducts ();
 	%>
 	
 </table>
+<center>第<%=pageNo %>页
+  &nbsp;
+共<%=pageSize%>页
+  &nbsp;
+  <a href="productlist.jsp?pageno=<%=pageNo-1%>">上一页</a>
+    &nbsp;
+  <a href="productlist.jsp?pageno=<%=pageNo+1%>">下一页</a>
+    &nbsp;
+  <a href="productlist.jsp?pageno=<%=pageSize%>">最后一页</a>
+</center>
 
 </body>
 </html>

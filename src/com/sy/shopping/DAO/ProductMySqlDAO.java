@@ -58,7 +58,26 @@ public class ProductMySqlDAO implements ProductDAO {
   public List<Product> getProducts (int pageNo,
                                     int pageSize) {
 
-    return null;
+    List<Product> ps = new ArrayList<Product> ();
+    Connection conn = DB.getConnection ();
+    ResultSet rs = null;
+    String sql = "select * from product limit " + (pageNo - 1) * pageSize + "," + pageSize;
+    rs = DB.executeQuery (conn, sql);
+    try {
+      while (rs.next ()) {
+
+        Product p = saveSingleProduct (rs);
+        ps.add (p);
+
+      }
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    } finally {
+      DB.closeRs (rs);
+      DB.closeConn (conn);
+    }
+
+    return ps;
   }
 
   @Override
@@ -120,6 +139,44 @@ public class ProductMySqlDAO implements ProductDAO {
     }
 
     return true;
+  }
+
+  @Override
+  public int getProducts (List<Product> result,
+                          int pageNo,
+                          int pageSize) {
+
+    Connection conn = DB.getConnection ();
+    ResultSet rs = null;
+    int rowCount = 0;
+    int pageCount = 0;
+
+    ResultSet allrs = null;
+    String allsql = "select count(*) from product";
+
+    String sql = "select * from product limit " + (pageNo - 1) * pageSize + "," + pageSize;
+    rs = DB.executeQuery (conn, sql);
+    allrs = DB.executeQuery (conn, allsql);
+    try {
+      while (rs.next ()) {
+
+        Product p = saveSingleProduct (rs);
+        result.add (p);
+
+      }
+      allrs.next ();
+      rowCount = allrs.getInt (1);
+      pageCount = (rowCount + pageSize - 1) / pageSize;
+
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    } finally {
+      DB.closeRs (rs);
+      DB.closeConn (conn);
+    }
+
+    return pageCount;
+
   }
 
 }

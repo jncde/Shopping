@@ -63,4 +63,12 @@ public class ProductOracleDAO implements ProductDAO {
     return false;
   }
 
+  @Override
+  public int getProducts (List<Product> result,
+                          int pageNo,
+                          int pageSize) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
 }

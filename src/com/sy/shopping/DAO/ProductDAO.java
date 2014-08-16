@@ -31,4 +31,8 @@ public interface ProductDAO {
   public boolean updateProduct (Product p);
 
   public boolean addProduct (Product p);
+
+  public int getProducts (List<Product> result,
+                          int pageNo,
+                          int pageSize);
 }
