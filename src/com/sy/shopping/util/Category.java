@@ -113,4 +113,10 @@ public class Category {
     CategoryDAO.saveChild (pid, c);
   }
 
+  public static boolean isLeaf (int id) {
+
+    Category c = CategoryDAO.getCategoryByID (id);
+    return c.isLeaf ();
+  }
+
 }

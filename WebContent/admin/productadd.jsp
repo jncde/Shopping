@@ -17,6 +17,11 @@ String descr=request.getParameter ("descr");
 double normalprice=Double.parseDouble (request.getParameter ("normalprice"));
 double memberprice=Double.parseDouble (request.getParameter ("memberprice"));
 int categoryId=Integer.parseInt (request.getParameter ("categoryid"));
+
+if(!Category.isLeaf (categoryId)){
+  out.println ("can only add pruduct under leaf!");
+}
+
 Product p=new Product();
 p.setId (-1);
 p.setName (name);
@@ -69,7 +74,7 @@ out.println ("add rooot category success!");
   	</tr>
   	<tr>
   		<td>Àà±ðID£º</td>
-  		<td><input type="text" name="categoryid" />
+  		<td><input type="text" name="categoryid" value="<%=request.getParameter ("categoryid")==null?"":request.getParameter ("categoryid") %>" />
   		</td>
   	</tr>
  

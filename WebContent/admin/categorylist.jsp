@@ -29,6 +29,7 @@ List<Category> cs=Category.getCategories();
     <td>grade</td>
     <td></td>
     <td></td>
+    <td></td>
  
   </tr>
   <%
@@ -49,6 +50,11 @@ List<Category> cs=Category.getCategories();
       <a href="categoryadd.jsp?pid=<%=c.getId()%>">添加子类别</a></td>
       <td>
       <a href="categorydelete.jsp?id=<%=c.getId()%>">删除</a></td>
+      <td>
+      <%if(Category.isLeaf (c.getId ())) {%>
+      <a href="productadd.jsp?categoryid=<%=c.getId()%>">添加商品</a></td>
+      <%}
+      %>
     </tr>  
     
     
