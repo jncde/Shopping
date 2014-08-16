@@ -17,6 +17,17 @@ String action=request.getParameter ("action");
 
 //ch eck if it is the first link or a submit
 if(action!=null && action.equalsIgnoreCase ("complexsearch")){
+  
+  int pageNo=1;
+  String strPageno=request.getParameter ("pageno");
+  if(strPageno!=null&&!strPageno.isEmpty ()){
+   pageNo=Integer.parseInt (strPageno);
+   if(pageNo<1){
+     pageNo=1;
+   }
+  }
+  
+  
 String keyword=request.getParameter ("keyword");
 double lowNormalPrice=Double.parseDouble (request.getParameter ("lownormalprice"));
 double highNormalPrice=Double.parseDouble (request.getParameter ("highnormalprice"));
@@ -39,15 +50,12 @@ if(strStartDate==null||strStartDate.equals ("")){
 }
 String strEndDate=request.getParameter ("enddate");
 Timestamp endDate=null;
-if(strEndDate==null||strEndDate.equals ("")){
+if(strEndDate==null||strEndDate.isEmpty ()){
 }else{
   endDate=Timestamp.valueOf (strEndDate);
 }
 
-
-
-
-List<Product> products=ProductMgr.getInstance ().findProducts (idArray, keyword, lowNormalPrice, highNormalPrice, lowMemberPrice, highMemberPrice, startDate, endDate, 1,3 );
+List<Product> products=ProductMgr.getInstance ().findProducts (idArray, keyword, lowNormalPrice, highNormalPrice, lowMemberPrice, highMemberPrice, startDate, endDate, pageNo,3 );
 
 %>
 
@@ -88,9 +96,13 @@ List<Product> products=ProductMgr.getInstance ().findProducts (idArray, keyword,
   %>
   
 </table>
+<center>
+<a href="productsearch.jsp?action=<%=action%>&keyword=<%=keyword%>&lownormalprice=<%=lowNormalPrice%>&highnormalprice=<%=highNormalPrice%>&lowmemberprice=<%=lowMemberPrice%>&highmemberprice=<%=highMemberPrice%>&startdate=<%=strStartDate%>&enddate=<%=strEndDate%>&categoryid=<%=categoryId%>&pageno=<%=pageNo-1%>">上一页</a>
+<a href="productsearch.jsp?action=<%=action%>&keyword=<%=keyword%>&lownormalprice=<%=lowNormalPrice%>&highnormalprice=<%=highNormalPrice%>&lowmemberprice=<%=lowMemberPrice%>&highmemberprice=<%=highMemberPrice%>&startdate=<%=strStartDate%>&enddate=<%=strEndDate%>&categoryid=<%=categoryId%>&pageno=<%=pageNo+1%>">下一页</a>
+</center>
+
 <%
 
-return; 
 
  
 }
