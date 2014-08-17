@@ -38,29 +38,36 @@ public class CategoryDAO {
                                     int id) {
 
     Connection conn = null;
-    ResultSet rs = null;
 
     try {
       conn = DB.getConnection ();
-      String sql = "select * from category where pid=" + id;
-      rs = DB.executeQuery (conn, sql);
-
-      while (rs.next ()) {
-        Category c = getCategoryFromrs (rs);
-        list.add (c);
-        if (!c.isLeaf ()) {
-          getCategories (list, c.getId ());
-        }
-
-      }
+      getCategories (list, id, conn);
 
     } catch (SQLException e) {
       e.printStackTrace ();
     } finally {
-      DB.closeRs (rs);
       DB.closeConn (conn);
     }
 
+  }
+
+  private static void getCategories (List<Category> list,
+                                    int id,
+                                    Connection conn) throws SQLException {
+    ResultSet rs;
+    String sql = "select * from category where pid=" + id;
+    rs = DB.executeQuery (conn, sql);
+
+    while (rs.next ()) {
+      Category c = getCategoryFromrs (rs);
+      list.add (c);
+      if (!c.isLeaf ()) {
+        getCategories (list, c.getId (), conn);
+      }
+
+    }
+
+    DB.closeRs (rs);
   }
 
   private static Category getCategoryFromrs (ResultSet rs) throws SQLException {

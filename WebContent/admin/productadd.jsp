@@ -1,9 +1,14 @@
+<%@page import="java.util.*"%>
 <%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=GB18030"
     pageEncoding="GB18030"%>
 
 <%@ page import="com.sy.shopping.util.*" %>
 <%@ include file="_sessioncheck.jsp"%>    
+
+<%
+List<Category> cs=Category.getCategories ();
+%>
 
 <%
 
@@ -74,7 +79,26 @@ out.println ("add rooot category success!");
   	</tr>
   	<tr>
   		<td>类别ID：</td>
-  		<td><input type="text" name="categoryid" value="<%=request.getParameter ("categoryid")==null?"":request.getParameter ("categoryid") %>" />
+  		<td>
+  		<select name="categoryid" >
+    <option value="0">所有类别</option>
+    <%
+
+    for(Iterator<Category> it=cs.iterator ();it.hasNext ();){
+      Category c=it.next ();
+      String preStr="";
+      for(int i=1;i<c.getGrade ();i++){
+        preStr+="--";
+      }
+      
+      %>
+      <option value="<%=c.getId ()%>" <%=String.valueOf (c.getId ()).equals (request.getParameter ("categoryid"))?"selected":"" %> > <%=preStr+c.getName() %> </option>
+      
+      <%
+      
+    }
+    %>
+    </select>
   		</td>
   	</tr>
  
