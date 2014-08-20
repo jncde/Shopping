@@ -278,4 +278,28 @@ public class ProductMySqlDAO implements ProductDAO {
 
     return pageCount;
   }
+
+  @Override
+  public List<Product> getLastestProduct (int size) {
+    List<Product> ps = new ArrayList<Product> ();
+    Connection conn = DB.getConnection ();
+    ResultSet rs = null;
+    String sql = "select * from product limit 1," + size;
+    rs = DB.executeQuery (conn, sql);
+    try {
+      while (rs.next ()) {
+
+        Product p = saveSingleProduct (rs);
+        ps.add (p);
+
+      }
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    } finally {
+      DB.closeRs (rs);
+      DB.closeConn (conn);
+    }
+
+    return ps;
+  }
 }

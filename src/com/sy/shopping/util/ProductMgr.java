@@ -105,4 +105,7 @@ public class ProductMgr {
     return dao.addProduct (p);
   }
 
+  public List<Product> getLastestProduct (int size) {
+    return dao.getLastestProduct (size);
+  }
 }

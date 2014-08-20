@@ -71,4 +71,10 @@ public class ProductOracleDAO implements ProductDAO {
     return 0;
   }
 
+  @Override
+  public List<Product> getLastestProduct (int size) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }
