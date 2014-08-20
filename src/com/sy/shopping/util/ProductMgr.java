@@ -105,6 +105,10 @@ public class ProductMgr {
     return dao.addProduct (p);
   }
 
+  public Product loadProductById (int id) {
+    return dao.loadProductById (id);
+  }
+
   public List<Product> getLastestProduct (int size) {
     return dao.getLastestProduct (size);
   }

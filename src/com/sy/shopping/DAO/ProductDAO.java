@@ -37,4 +37,6 @@ public interface ProductDAO {
                           int pageSize);
 
   public List<Product> getLastestProduct (int size);
+
+  public Product loadProductById (int id);
 }

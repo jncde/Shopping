@@ -302,4 +302,27 @@ public class ProductMySqlDAO implements ProductDAO {
 
     return ps;
   }
+
+  @Override
+  public Product loadProductById (int id) {
+    Product p = null;
+    Connection conn = DB.getConnection ();
+    ResultSet rs = null;
+    String sql = "select * from product where id=" + id;
+    rs = DB.executeQuery (conn, sql);
+    try {
+      while (rs.next ()) {
+
+        p = saveSingleProduct (rs);
+
+      }
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    } finally {
+      DB.closeRs (rs);
+      DB.closeConn (conn);
+    }
+
+    return p;
+  }
 }
