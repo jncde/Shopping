@@ -27,59 +27,9 @@
 
   //ch eck if it is the first link or a submit
   if (action != null && action.equalsIgnoreCase ("complexsearch")) {
-
-    String strPageno = request.getParameter ("pageno");
-    if (strPageno != null && !strPageno.isEmpty ()) {
-      pageNo = Integer.parseInt (strPageno);
-      if (pageNo < 1) {
-        pageNo = 1;
-      }
-    }
-
-    keyword = request.getParameter ("keyword");
-    if(keyword==null){
-      keyword="";
-    }
-    
-    lowNormalPrice = Double.parseDouble (request.getParameter ("lownormalprice"));
-    highNormalPrice = Double.parseDouble (request.getParameter ("highnormalprice"));
-    lowMemberPrice = Double.parseDouble (request.getParameter ("lowmemberprice"));
-    highMemberPrice = Double.parseDouble (request.getParameter ("highmemberprice"));
-    categoryId = Integer.parseInt (request.getParameter ("categoryid"));
-    int[] idArray = null;
-    if (categoryId == 0) {
-      idArray = null;
-    } else {
-      idArray = new int[1];
-      idArray[0] = categoryId;
-    }
-
-    strStartDate = request.getParameter ("startdate");
-    Timestamp startDate = null;
-    if (strStartDate == null || strStartDate.equals ("")) {
-    } else {
-      startDate = Timestamp.valueOf (strStartDate);
-    }
-    strEndDate = request.getParameter ("enddate");
-    Timestamp endDate = null;
-    if (strEndDate == null || strEndDate.isEmpty ()) {
-    } else {
-      endDate = Timestamp.valueOf (strEndDate);
-    }
-
-   
-    pageCount = ProductMgr.getInstance ().findProducts (products,
-                                                        idArray,
-                                                        keyword,
-                                                        lowNormalPrice,
-                                                        highNormalPrice,
-                                                        lowMemberPrice,
-                                                        highMemberPrice,
-                                                        startDate,
-                                                        endDate,
-                                                        pageNo,
-                                                        3);
-
+     %>
+     <jsp:forward page="complexsearchresult.jsp"></jsp:forward>
+     <%
   }
 
   //处理简单搜索
@@ -190,13 +140,6 @@ if(products!=null&&products.size ()>0){
 <center>
 
 <%
-if(action != null && action.equalsIgnoreCase ("complexsearch")){
-%>
-	<a href="productsearch.jsp?action=<%=action%>&keyword=<%=keyword%>&lownormalprice=<%=lowNormalPrice%>&highnormalprice=<%=highNormalPrice%>&lowmemberprice=<%=lowMemberPrice%>&highmemberprice=<%=highMemberPrice%>&startdate=<%=strStartDate%>&enddate=<%=strEndDate%>&categoryid=<%=categoryId%>&pageno=<%=pageNo - 1%>">上一页</a>
-	共<%=pageCount%>页 
-	<a href="productsearch.jsp?action=<%=action%>&keyword=<%=keyword%>&lownormalprice=<%=lowNormalPrice%>&highnormalprice=<%=highNormalPrice%>&lowmemberprice=<%=lowMemberPrice%>&highmemberprice=<%=highMemberPrice%>&startdate=<%=strStartDate%>&enddate=<%=strEndDate%>&categoryid=<%=categoryId%>&pageno=<%=pageNo + 1%>">下一页</a>
-	<%
-}
 
 if(action != null && action.equalsIgnoreCase ("simplesearch2")){
   //TODO:
