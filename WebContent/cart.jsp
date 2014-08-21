@@ -56,6 +56,10 @@ if(cart==null){
 	%>
 	
 </table>
-<center><input type="submit"  value="修改数量"/></center>
+<center>
+共<%=Math.round (cart.getTotalPrice ()*100)/100.0 %>元
+<input type="submit"  value="修改数量"/>
+<input type="button"  value="确认订单" onclick="document.location.href='confirm.jsp'"/>
+</center>
 
 </form>
