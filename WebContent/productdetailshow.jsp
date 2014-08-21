@@ -11,8 +11,8 @@ request.setCharacterEncoding ("gb2312");
 int id=Integer.parseInt (request.getParameter ("id"));
 Product p=ProductMgr.getInstance ().loadProductById (id);
 List<Category> cs=Category.getCategories ();
-
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,12 +21,16 @@ List<Category> cs=Category.getCategories ();
 </head>
 <body>
 
-<form action="productadd.jsp" method="post">
-<input type="hidden" name="action" value="add" />
+<form action="buy.jsp" method="post">
   <table>
   	<tr>
   		<td>²úÆ·Í¼Æ¬£º</td>
   		<td> <img src="css/images/big1.jpg" alt="" />
+  		</td>
+  	</tr>
+  	<tr>
+  		<td>ID£º</td>
+  		<td><input type="text" name="id" value="<%=p.getId ()%>"/>
   		</td>
   	</tr>
   	<tr>
