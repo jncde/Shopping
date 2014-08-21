@@ -9,7 +9,7 @@
 
 
 
-<%
+<%--
 //check session to see if there's a cart in it
 //get attribute from session 1
  
@@ -19,12 +19,12 @@ if(cart==null){
   return;
 }
  
-%>
+--%>
 
 <!-- get attribute from session 2 -->
-<!--
-<jsp:useBean id="cart2" class="com.sy.shopping.Cart" scope="session"></jsp:useBean>
--->
+ 
+<jsp:useBean id="cart" class="com.sy.shopping.Cart" scope="session"></jsp:useBean>
+ 
 
 
 <table border=1>
