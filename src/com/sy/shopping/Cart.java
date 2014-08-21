@@ -16,6 +16,15 @@ public class Cart {
   }
 
   public void add (CartItem item) {
+
+    for (int i = 0; i < items.size (); i++) {
+      CartItem ci = items.get (i);
+      if (ci.getProductId () == item.getProductId ()) {
+        ci.setCount (ci.getCount () + 1);
+        return;
+      }
+    }
+
     items.add (item);
   }
 

@@ -25,9 +25,9 @@ if(cart==null){
  
 <jsp:useBean id="cart" class="com.sy.shopping.Cart" scope="session"></jsp:useBean>
  
-
-
-<table border=1>
+<center>你一用买了这么多的商品</center>
+<form action="cartupdate.jsp" method="post">
+<table border=1 align="center">
 	<tr>
 		<td>商品ID</td>
 		<td>商品名称</td>
@@ -43,10 +43,12 @@ if(cart==null){
 	  %>
         <tr>
         	<td><%=ci.getProductId () %></td>
-        	<td><%=ProductMgr.getInstance ().loadProductById (ci.getProductId ()) %></td>
+        	<td><%=ProductMgr.getInstance ().loadProductById (ci.getProductId ()).getName () %></td>
         	<td><%=ci.getPrice () %></td>
-        	<td><%=ci.getCount () %></td>
-        	<td></td>
+        	<td> <input type="text" size=4 name="<%="p"+ci.getProductId () %>"  value="<%=ci.getCount () %>"/> </td>
+        	<td>
+        
+        	</td>
         </tr>
 	  <%
 	}
@@ -54,3 +56,6 @@ if(cart==null){
 	%>
 	
 </table>
+<center><input type="submit"  value="修改数量"/></center>
+
+</form>
