@@ -8,6 +8,7 @@
 </head>
 <body>
 <a href="usermodify.jsp">修改个人信息</a>
+<a href="index.jsp">返回首页</a>
 
 
 </body>

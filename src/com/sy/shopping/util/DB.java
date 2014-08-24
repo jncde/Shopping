@@ -88,6 +88,24 @@ public class DB {
 
   }
 
+  public static PreparedStatement prepStmt (Connection conn,
+                                            String sql,
+                                            boolean generatedKey) {
+    PreparedStatement pStmt = null;
+    try {
+      if (generatedKey) {
+        pStmt = conn.prepareStatement (sql, Statement.RETURN_GENERATED_KEYS);
+      } else {
+        pStmt = conn.prepareStatement (sql);
+
+      }
+    } catch (SQLException e) {
+      e.printStackTrace ();
+    }
+    return pStmt;
+
+  }
+
   public static ResultSet executeQuery (Statement stmt,
                                         String sql) {
 
